@@ -121,7 +121,16 @@ class Program:
 		cout("Do you want to store this build?")
 		x = input("[yes/y/no/n]")
 		if x in ["yes", "y"]:
-			move(f"{working_dir}/{filename}", f"{working_dir}/builds/")
+			try:
+				move(f"{working_dir}/{filename}", f"{working_dir}/builds/")
+			except Exception as error:
+				cout(error)
+				x = input("[!] File already exist \n [+]-> Do you want to overwrite it? [y/n]")
+				if x in ["y", "yes"]:
+					os.system(f"mv {working_dir}/{filename} {working_dir}/builds/")
+				else:
+					cout("File not saved")
+					
 		else:
 			os.remove(f"{working_dir}/helloworld")
 		
