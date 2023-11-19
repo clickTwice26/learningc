@@ -111,7 +111,7 @@ class Program:
 						commit_name = "some coding happend"
 						cout("Commit_name:{}".format(commit_name))
 					self.gitcommit(commit_name)
-					if cileng > 4:
+					if cileng >= 4:
 						try:
 							
 							branch_name = ci[4]
