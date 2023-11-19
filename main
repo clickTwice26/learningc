@@ -60,7 +60,7 @@ class Program:
 			
 	
 	def log(self, comment, consoleOut=False):
-		consoleOutStr = f"{Fore.YELLOW}[cOut] [{comment}]"
+		consoleOutStr = f"{Back.WHITE} {Fore.YELLOW}[cOut] [{comment}]"
 		log_data = f"[cOut-{self.__session}] [{currentTime()}] [{comment}]"
 		if config_data["consoleOut"] == "True":
 			print(consoleOutStr)
