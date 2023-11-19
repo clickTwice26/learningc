@@ -42,7 +42,11 @@ class Program:
 	def __init__(self, session, session_comment=None):
 		self.__session = session
 		self.__session_comment = session_comment
-
+		if config_data["commandEcho"] == "True":
+			self.__commandEcho = ""
+		else:
+			self.__commandEcho = "> /dev/null > 2&1"
+		
 
 	def log(self, comment, consoleOut=False):
 		consoleOutStr = f"[cOut] [{comment}]"
@@ -55,6 +59,7 @@ class Program:
 				console_logger.close()
 
 		#log_overflow_checker
+		
 	def log_overflow_fix(self):
 		log_limit = config_data["console_log_limit"]
 		try:
@@ -85,15 +90,18 @@ class Program:
 		return "Don't use without"
 
 	def gitcommit(self, commit_name):
-		os.system(f"cd {working_dir} && git add .")
-		os.system(f"cd {working_dir} && git commit -m '{commit_name}_{self.__session}'")
+		
+		os.system(f"cd {working_dir} && git add . {self.__commandEcho}")
+		os.system(f"cd {working_dir} && git commit -m '{commit_name}_{self.__session}' {self.__commandEcho}")
+
 	def gitpush(self, branch_name="default"):
+
 		if branch_name == "default":
 			cout("No branch selected to push")
 			cout("default branch selected-> 'master'")
-			os.system(f"git push -u origin master")
+			os.system(f"git push -u origin master {self.__commandEcho}")
 		else:
-			os.system(f"git push -u origin {branch_name}")
+			os.system(f"git push -u origin {branch_name} {self.__commandEcho}")
 	def console_input_manage(self, console_inputs):
 		self.options = console_inputs[1]
 		self.parameter = console_inputs[2]

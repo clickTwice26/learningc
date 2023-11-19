@@ -1,7 +1,8 @@
 {
 	"consoleOut" : "True",
 	"consoleLog" : "True",
-	"console_log_limit" : "5",
-	"cout": "True"
+	"console_log_limit" : "50",
+	"cout": "True",
+	"commandEcho": "True"
 
 }
