@@ -44,7 +44,7 @@ def cout(comment):
 
 		else:
 			prefix = Fore.GREEN + "[+]"
-		print(f"{prefix}-> {Fore.BLUE} {comment}")
+		print(f"{Style.BRIGHT} {Back.GREEN}{prefix}-> {Fore.BLUE} {comment}")
 	
 class Program:
 	def __init__(self, session, session_comment=None):
@@ -60,7 +60,7 @@ class Program:
 			
 	
 	def log(self, comment, consoleOut=False):
-		consoleOutStr = f"{Style.BRIGHT} {Back.GREEN}{Fore.BLACK} [cOut] [{comment}]"
+		consoleOutStr = f"{Fore.BLACK} [cOut] [{comment}]"
 		log_data = f"[cOut-{self.__session}] [{currentTime()}] [{comment}]"
 		if config_data["consoleOut"] == "True":
 			print(consoleOutStr)
