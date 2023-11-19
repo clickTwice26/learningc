@@ -61,7 +61,7 @@ class Program:
 	
 	def log(self, comment, consoleOut=False):
 		consoleOutStr = f"[cOut] [{comment}]"
-		log_data = f"[cOut-{self.__session}] [{currentTime()}] {comment}"
+		log_data = f"[cOut-{self.__session}] [{currentTime()}] [{comment}]"
 		if config_data["consoleOut"] == "True":
 			print(consoleOutStr)
 		if config_data["consoleLog"] == "True":
@@ -107,14 +107,14 @@ class Program:
 		os.system(f"cd {working_dir} && git commit -m '{commit_name}_{self.__session}' {self.__commandEcho}")
 		self.log(f"commit attempt completed: '{commit_name}'")
 	def gitpush(self, branch_name="default"):
-		self.log(f"git attempt for: '{branch_name}'")
+		self.log(f"git attempt for push: '{branch_name}'")
 		if branch_name == "default":
 			cout("No branch selected to push")
 			cout("default branch selected-> 'master'")
 			os.system(f"git push -u origin master {self.__commandEcho}")
 		else:
 			os.system(f"git push -u origin {branch_name} {self.__commandEcho}")
-		self.log(f"git attempt for: {branch_name} completed")
+		self.log(f"git attempt for push: {branch_name} completed")
 	def c_run(self, filename):
 		self.log(f"attempted '{filename}' to run")
 		print(10*"-------")
