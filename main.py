@@ -28,6 +28,7 @@ def currentTime(wdm="both"):
 	else:
 		return dt_string
 def cout(comment):
+	comment = str(comment)
 	if config_data["cout"] == "True":
 		comment_check = comment.lower()
 		error_list = ["not", "failed", "error", "unsuccessful", "problem", "fix"]
