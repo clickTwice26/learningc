@@ -78,7 +78,7 @@ class Program:
 		except FileNotFoundError:
 			current_log_amount = 0
 		
-		cout(f"\nConsole_logs_amount: {current_log_amount}")
+		cout(f"Console_logs_amount: {current_log_amount}")
 		cout(f"Global_log_limit:  {log_limit}")
 		if current_log_amount > int(log_limit):
 			cout("Log_Overflowed")
@@ -124,11 +124,12 @@ class Program:
 
 		cout("Do you want to store this build?")
 		try:
-			x = input("[yes/y/no/n]")
-		
+			x = input("[yes/y/no/n]: ")
 			if x in ["yes", "y"]:
 				try:
+					
 					move(f"{working_dir}/{filename}", f"{working_dir}/builds/")
+
 				except Exception as error:
 					cout(error)
 					x = input("[!] File already exist \n [+]-> Do you want to overwrite it? [y/n]")
@@ -136,7 +137,7 @@ class Program:
 						os.system(f"mv {working_dir}/{filename} {working_dir}/builds/")
 					else:
 						cout("File not saved")
-						
+
 			else:
 				os.remove(f"{working_dir}/helloworld")
 		except KeyboardInterrupt:
@@ -187,15 +188,14 @@ class Program:
 
 		
 
-#----------------------------------session-declare-----------------------------------#
+#----------------------------------Session-Declare-----------------------------------#
 session_code = randint(10000, 309000)
 mains = Program(session_code)
 if len(console_inputs)>1:
 	mains.console_input_manage(console_inputs)
 else:
 	print("No arguments given")
-#-----------------------------------------Session-Declare---------------------------#
-
+#------------------------------------------Session-Declare---------------------------#
 #---------------------Body---------------------------#
 
 
@@ -205,12 +205,13 @@ else:
 
 
 
-#---------------------Body---------------------------#
 
-#---------------------Footer---------------------------#
+#---------------------Body---------------------------#
+#---------------------Footer-------------------------#
+
 
 mains.log_overflow_fix()
 mains.programExit()
 
 
-#---------------------Footer---------------------------#
+#---------------------Footer-------------------------#
