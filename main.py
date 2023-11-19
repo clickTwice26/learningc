@@ -165,5 +165,6 @@ mains.console_input_manage(console_inputs)
 
 
 mains.log_overflow_fix()
+mains.programExit()
 
 
