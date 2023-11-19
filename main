@@ -16,6 +16,12 @@ except FileNotFoundError:
 	exit("[+] Exiting")
 #print(config_data)
 console_inputs = argv
+def byte2other(byte):
+	byte = float(byte)
+	KiB = byte/1024
+	MiB = KiB/1024
+	GiB = MiB/1024
+	return f"{KiB} KB | {MiB} MB | {GiB} GB"
 def currentTime(wdm="both"):
 	now = datetime.now()
 	dt_string = str(now.strftime("%d/%m/%Y %H:%M:%S"))
@@ -84,7 +90,7 @@ class Program:
 			cout(f"Build Size: {self.__build_size_number} bytes")
 		except AttributeError:
 			print("")
-		cout(f"Total Project Size: {os.path.getsize(working_dir)}")
+		cout(f"Total Project Size: {byte2other(float(os.path.getsize(working_dir)))}")
 		cout(f"Console_logs_amount: {current_log_amount}")
 		cout(f"Global_log_limit:  {log_limit}")
 		if current_log_amount > int(log_limit):
