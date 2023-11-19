@@ -60,8 +60,8 @@ class Program:
 			current_log_amount = len(open("console_log.txt", "r").read().splitlines())
 		except FileNotFoundError:
 			current_log_amount = 0
-		print("Console_logs_amount: ",current_log_amount)
-		print("Global_log_limit: ", log_limit)
+		cout(f"Console_logs_amount: {current_log_amount}")
+		cout(f"Global_log_limit:  {log_limit}")
 		if current_log_amount > int(log_limit):
 			print("Log_Overflowed")
 			#print("Log_getting_backedup")
