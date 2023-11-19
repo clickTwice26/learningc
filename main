@@ -3,16 +3,19 @@ import os
 import json
 from datetime import datetime
 from random import randint
-from shutil import copyfile
+from shutil import copyfile, move
 from sys import argv, exit
 from colorama import Fore, Back, Style, init
 init(autoreset=True)
 working_dir = os.getcwd()
 print(working_dir)
-config_data = json.load(open(working_dir+"/config.json", "r"))
+try:
+	config_data = json.load(open(working_dir+"/config.json", "r"))
+except FileNotFoundError:
+	print("[+] Not found proper environment to run this program")
+	exit("[+] Exiting")
 #print(config_data)
 console_inputs = argv
-
 def currentTime(wdm="both"):
 	now = datetime.now()
 	dt_string = str(now.strftime("%d/%m/%Y %H:%M:%S"))
@@ -109,8 +112,15 @@ class Program:
 	def c_run(self, filename):
 
 		os.system(f"cd {working_dir} && gcc -g -Wall {filename}.c -o {filename} && ./{filename}")
-		os.remove(f"{working_dir}/helloworld")
 		print(5*"\n")
+
+		cout("Do you want to store this build?")
+		x = input("[yes/y/no/n]")
+		if x in ["yes", "y"]:
+			move(f"{working_dir}/{filename}", f"{working_dir}/builds/")
+		else:
+			os.remove(f"{working_dir}/helloworld")
+		
 	def console_input_manage(self, console_inputs):
 		self.options = console_inputs[1]
 		self.parameter = console_inputs[2]
@@ -160,7 +170,10 @@ class Program:
 #----------------------------------session-declare-----------------------------------#
 session_code = randint(10000, 309000)
 mains = Program(session_code)
-mains.console_input_manage(console_inputs)
+if len(console_inputs)>1:
+	mains.console_input_manage(console_inputs)
+else:
+	print("No arguments given")
 #-----------------------------------------Session-Declare---------------------------#
 
 #---------------------Body---------------------------#
