@@ -35,6 +35,7 @@ def cout(comment):
 
 		if error_check is True:
 			prefix = Fore.RED + "[X-ERROR]"
+
 		else:
 			prefix = Fore.GREEN + "[+]"
 		print(f"{prefix}-> {Fore.BLUE} {comment}")
@@ -136,7 +137,14 @@ class Program:
 				else:
 					cout("Commit Details Not Submited")
 					exit()
-		print(console_inputs)
+		cout(console_inputs)
+	def programExit(self):
+		config_data["last_session"] = str(self.__session)
+		with open(working_dir+"/config.json", "w") as config_writer:
+			config_writer.write(json.dumps(config_data, indent=4))
+			config_writer.close()
+
+	
 #----------------------------------session-declare-----------------------------------#
 session_code = randint(10000, 309000)
 mains = Program(session_code)
