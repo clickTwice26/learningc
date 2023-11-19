@@ -22,8 +22,8 @@ def byte2other(byte):
 	
 	MiB = KiB/1024
 	if MiB < 0.0001:
-		MiB = "Too Small"
-		GiB = "Too Small Too"
+		MiB = "[Too Small]"
+		GiB = "[Too Small Too]"
 		
 	GiB = MiB/1024
 	if GiB < 0.00001:
