@@ -114,8 +114,10 @@ class Program:
 					if cileng > 4:
 						try:
 							branch_name = ci[4]
+							self.gitpush(branch_name)
 						except IndexError:
 							cout("Branch_name not given")
+
 							self.gitpush()
 				else:
 					cout("Commit Details Not Submited")
