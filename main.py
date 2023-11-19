@@ -4,7 +4,8 @@ from datetime import datetime
 from random import randint
 from shutil import copyfile
 from sys import argv, exit
-from colorama import Fore, Back, Style
+from colorama import Fore, Back, Style, init
+init(autoreset=True)
 working_dir = os.getcwd()
 config_data = json.load(open(working_dir+"/config.json", "r"))
 #print(config_data)
