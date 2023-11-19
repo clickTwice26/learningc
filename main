@@ -78,10 +78,12 @@ class Program:
 		except FileNotFoundError:
 			current_log_amount = 0
 		print("\n")
-		
-		cout(f"Total line of code: {self.__line_number}")
-		cout(f"C Code File Size: {os.path.getsize(working_dir+f'/{self.__filename}.c')} bytes")
-		cout(f"Build Size: {self.__build_size_number} bytes")
+		try:
+			cout(f"Total line of code: {self.__line_number}")
+			cout(f"C Code File Size: {os.path.getsize(working_dir+f'/{self.__filename}.c')} bytes")
+			cout(f"Build Size: {self.__build_size_number} bytes")
+		except AttributeError:
+			print("")
 		cout(f"Console_logs_amount: {current_log_amount}")
 		cout(f"Global_log_limit:  {log_limit}")
 		if current_log_amount > int(log_limit):
