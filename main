@@ -24,10 +24,10 @@ def byte2other(byte):
 	if MiB < 0.0001:
 		MiB = "[Too Small]"
 		GiB = "[Too Small Too]"
-		
-	GiB = MiB/1024
-	if GiB < 0.00001:
-		GiB = "Too Small"
+	else:
+		GiB = MiB/1024
+		if GiB < 0.00001:
+			GiB = "Too Small"
 	return f"{byte} byte | {KiB} KB | {MiB} MB | {GiB} GB"
 def currentTime(wdm="both"):
 	now = datetime.now()
@@ -93,8 +93,8 @@ class Program:
 		print("\n")
 		try:
 			cout(f"Total line of code: {self.__line_number}")
-			cout(f"C Code File Size: {byte2other(float(os.path.getsize(working_dir+f'/{self.__filename}.c')))} bytes")
-			cout(f"Build Size: {byte2other(self.__build_size_number)} bytes")
+			cout(f"C Code File Size: {byte2other(float(os.path.getsize(working_dir+f'/{self.__filename}.c')))}")
+			cout(f"Build Size: {byte2other(self.__build_size_number)}")
 		except AttributeError:
 			print("")
 		cout(f"Total Project Size: {byte2other(float(os.path.getsize(working_dir)))}")
@@ -138,26 +138,31 @@ class Program:
 	def c_run(self, filename):
 		self.__filename = filename
 		self.__line_number = len(open(working_dir+f"/{filename}.c", "r").read().splitlines())
-		self.log(f"attempted '{filename}' to run")
+		self.log(f"attempted execution '{filename}'")
 		print(10*"-------")
 		os.system(f"cd {working_dir} && gcc -g -Wall {filename}.c -o {filename} && ./{filename}")
 		self.__build_size_number = os.path.getsize(working_dir+f'/{self.__filename}.c')
 		print(3*"\n")
 		print(10*"-------")
+		self.log(f"attemped of execution of '{filename}' completed")
 
 		cout("Do you want to store this build?")
 		try:
 			x = input("[yes/y/no/n]: ")
 			if x in ["yes", "y"]:
 				try:
-					
+					self.log(f"Exec version of '{filename}' saved to --> builds/")
 					move(f"{working_dir}/{filename}", f"{working_dir}/builds/")
 
 				except Exception as error:
-					cout(error)
+		#			cout(error)
 					x = input("[!] File already exist \n [+]-> Do you want to overwrite it? [y/n]")
 					if x in ["y", "yes"]:
 						os.system(f"mv {working_dir}/{filename} {working_dir}/builds/")
+						#move(f"{working_dir}/{filename}", f"{working_dir}/builds/")
+						self.log(f"Exec version of '{filename}' saved to --> builds/")
+
+
 					else:
 						cout("File not saved")
 
