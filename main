@@ -84,6 +84,7 @@ class Program:
 			cout(f"Build Size: {self.__build_size_number} bytes")
 		except AttributeError:
 			print("")
+		cout(f"Total Project Size: {os.path.getsize(working_dir)}")
 		cout(f"Console_logs_amount: {current_log_amount}")
 		cout(f"Global_log_limit:  {log_limit}")
 		if current_log_amount > int(log_limit):
