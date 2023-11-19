@@ -77,7 +77,11 @@ class Program:
 			current_log_amount = len(open("console_log.txt", "r").read().splitlines())
 		except FileNotFoundError:
 			current_log_amount = 0
+		print("\n")
 		
+		cout(f"Total line of code: {self.__line_number}")
+		cout(f"C Code File Size: {os.path.getsize(working_dir+f'/{self.__filename}.c')} bytes")
+		cout(f"Build Size: {self.__build_size_number} bytes")
 		cout(f"Console_logs_amount: {current_log_amount}")
 		cout(f"Global_log_limit:  {log_limit}")
 		if current_log_amount > int(log_limit):
@@ -116,9 +120,12 @@ class Program:
 			os.system(f"git push -u origin {branch_name} {self.__commandEcho}")
 		self.log(f"git attempt for push: {branch_name} completed")
 	def c_run(self, filename):
+		self.__filename = filename
+		self.__line_number = len(open(working_dir+f"/{filename}.c", "r").read().splitlines())
 		self.log(f"attempted '{filename}' to run")
 		print(10*"-------")
 		os.system(f"cd {working_dir} && gcc -g -Wall {filename}.c -o {filename} && ./{filename}")
+		self.__build_size_number = os.path.getsize(working_dir+f'/{self.__filename}.c')
 		print(3*"\n")
 		print(10*"-------")
 
