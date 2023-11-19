@@ -45,6 +45,7 @@ def cout(comment):
 		else:
 			prefix = Fore.GREEN + "[+]"
 		print(f"{prefix}-> {Fore.BLUE} {comment}")
+	
 class Program:
 	def __init__(self, session, session_comment=None):
 		self.__session = session
@@ -53,8 +54,11 @@ class Program:
 			self.__commandEcho = ""
 		else:
 			self.__commandEcho = "> /dev/null 2>&1"
-		
-
+		with open(working_dir+"/console_log.txt", "a") as console_logger:
+			console_logger.write(f"{5*'--'}{self.__session}{5*'--'}\n")
+			console_logger.close()
+			
+	
 	def log(self, comment, consoleOut=False):
 		consoleOutStr = f"[cOut] [{comment}]"
 		log_data = f"[cOut-{self.__session}] [{currentTime()}] {comment}"
