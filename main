@@ -19,9 +19,16 @@ console_inputs = argv
 def byte2other(byte):
 	byte = float(byte)
 	KiB = byte/1024
+	
 	MiB = KiB/1024
+	if MiB < 0.0001:
+		MiB = "Too Small"
+		GiB = "Too Small Too"
+		
 	GiB = MiB/1024
-	return f"{KiB} KB | {MiB} MB | {GiB} GB"
+	if GiB < 0.00001:
+		GiB = "Too Small"
+	return f"{byte} byte | {KiB} KB | {MiB} MB | {GiB} GB"
 def currentTime(wdm="both"):
 	now = datetime.now()
 	dt_string = str(now.strftime("%d/%m/%Y %H:%M:%S"))
