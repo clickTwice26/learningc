@@ -1,6 +1,7 @@
 {
 	"consoleOut" : "True",
 	"consoleLog" : "True",
-	"console_log_limit" : "5"
+	"console_log_limit" : "5",
+	"cout": "True"
 
 }

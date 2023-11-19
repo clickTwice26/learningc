@@ -28,15 +28,16 @@ def currentTime(wdm="both"):
 	else:
 		return dt_string
 def cout(comment):
-	comment_check = comment.lower()
-	error_list = ["not", "failed", "error", "unsuccessful", "problem", "fix"]
-	error_check = any(item in comment_check for item in error_list)
+	if config_data["cout"] == "True":
+		comment_check = comment.lower()
+		error_list = ["not", "failed", "error", "unsuccessful", "problem", "fix"]
+		error_check = any(item in comment_check for item in error_list)
 
-	if error_check is True:
-		prefix = Fore.RED + "[X-ERROR]"
-	else:
-		prefix = Fore.GREEN + "[+]"
-	print(f"{prefix}-> {Fore.BLUE} {comment}")
+		if error_check is True:
+			prefix = Fore.RED + "[X-ERROR]"
+		else:
+			prefix = Fore.GREEN + "[+]"
+		print(f"{prefix}-> {Fore.BLUE} {comment}")
 class Program:
 	def __init__(self, session, session_comment=None):
 		self.__session = session
