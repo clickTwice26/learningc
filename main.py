@@ -36,7 +36,7 @@ def cout(comment):
 		prefix = Fore.RED + "[X-ERROR]"
 	else:
 		prefix = Fore.GREEN + "[+]"
-	print(f"{prefix}-> {Fore.BLACK} {comment}")
+	print(f"{prefix}-> {Fore.BLUE} {comment}")
 class Program:
 	def __init__(self, session, session_comment=None):
 		self.__session = session
