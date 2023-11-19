@@ -77,7 +77,8 @@ class Program:
 			current_log_amount = len(open("console_log.txt", "r").read().splitlines())
 		except FileNotFoundError:
 			current_log_amount = 0
-		cout(f"Console_logs_amount: {current_log_amount}")
+		
+		cout(f"\nConsole_logs_amount: {current_log_amount}")
 		cout(f"Global_log_limit:  {log_limit}")
 		if current_log_amount > int(log_limit):
 			cout("Log_Overflowed")
@@ -101,39 +102,45 @@ class Program:
 		return "Don't use without"
 
 	def gitcommit(self, commit_name):
-		
+		self.log(f"attempt to commit: {commit_name}")
 		os.system(f"cd {working_dir} && git add . {self.__commandEcho}")
 		os.system(f"cd {working_dir} && git commit -m '{commit_name}_{self.__session}' {self.__commandEcho}")
-
+		self.log(f"commit attempt completed: '{commit_name}'")
 	def gitpush(self, branch_name="default"):
-
+		self.log(f"git attempt for: '{branch_name}'")
 		if branch_name == "default":
 			cout("No branch selected to push")
 			cout("default branch selected-> 'master'")
 			os.system(f"git push -u origin master {self.__commandEcho}")
 		else:
 			os.system(f"git push -u origin {branch_name} {self.__commandEcho}")
+		self.log(f"git attempt for: {branch_name} completed")
 	def c_run(self, filename):
-
+		self.log(f"attempted '{filename}' to run")
+		print(10*"-------")
 		os.system(f"cd {working_dir} && gcc -g -Wall {filename}.c -o {filename} && ./{filename}")
-		print(5*"\n")
+		print(3*"\n")
+		print(10*"-------")
 
 		cout("Do you want to store this build?")
-		x = input("[yes/y/no/n]")
-		if x in ["yes", "y"]:
-			try:
-				move(f"{working_dir}/{filename}", f"{working_dir}/builds/")
-			except Exception as error:
-				cout(error)
-				x = input("[!] File already exist \n [+]-> Do you want to overwrite it? [y/n]")
-				if x in ["y", "yes"]:
-					os.system(f"mv {working_dir}/{filename} {working_dir}/builds/")
-				else:
-					cout("File not saved")
-					
-		else:
-			os.remove(f"{working_dir}/helloworld")
+		try:
+			x = input("[yes/y/no/n]")
 		
+			if x in ["yes", "y"]:
+				try:
+					move(f"{working_dir}/{filename}", f"{working_dir}/builds/")
+				except Exception as error:
+					cout(error)
+					x = input("[!] File already exist \n [+]-> Do you want to overwrite it? [y/n]")
+					if x in ["y", "yes"]:
+						os.system(f"mv {working_dir}/{filename} {working_dir}/builds/")
+					else:
+						cout("File not saved")
+						
+			else:
+				os.remove(f"{working_dir}/helloworld")
+		except KeyboardInterrupt:
+			pass	
 	def console_input_manage(self, console_inputs):
 		self.options = console_inputs[1]
 		self.parameter = console_inputs[2]
@@ -198,10 +205,12 @@ else:
 
 
 
+#---------------------Body---------------------------#
 
-
+#---------------------Footer---------------------------#
 
 mains.log_overflow_fix()
 mains.programExit()
 
 
+#---------------------Footer---------------------------#
