@@ -151,7 +151,7 @@ class Program:
 		
 		if self.options == "git":
 			cout("'git' option activated")
-			cout(str(len(ci)))
+			#cout(str(len(ci)))
 			if self.parameter == "allpush":
 				if cileng > 3:
 					
