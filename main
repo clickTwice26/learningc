@@ -8,7 +8,7 @@ from sys import argv, exit
 from colorama import Fore, Back, Style, init
 init(autoreset=True)
 working_dir = os.getcwd()
-print(working_dir)
+#print(working_dir)
 try:
 	config_data = json.load(open(working_dir+"/config.json", "r"))
 except FileNotFoundError:
