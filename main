@@ -86,8 +86,8 @@ class Program:
 		print("\n")
 		try:
 			cout(f"Total line of code: {self.__line_number}")
-			cout(f"C Code File Size: {os.path.getsize(working_dir+f'/{self.__filename}.c')} bytes")
-			cout(f"Build Size: {self.__build_size_number} bytes")
+			cout(f"C Code File Size: {byte2other(float(os.path.getsize(working_dir+f'/{self.__filename}.c')))} bytes")
+			cout(f"Build Size: {byte2other(self.__build_size_number)} bytes")
 		except AttributeError:
 			print("")
 		cout(f"Total Project Size: {byte2other(float(os.path.getsize(working_dir)))}")
