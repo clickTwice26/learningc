@@ -35,7 +35,7 @@ def cout(comment):
 		prefix = Fore.RED + "[X-ERROR]"
 	else:
 		prefix = Fore.GREEN + "[+]"
-	print(f"{prefix}-> {comment}")
+	print(f"{prefix}-> {Fore.BLACK} {comment}")
 class Program:
 	def __init__(self, session, session_comment=None):
 		self.__session = session
@@ -127,12 +127,14 @@ class Program:
 					cout("Commit Details Not Submited")
 					exit()
 		print(console_inputs)
+#----------------------------------session-declare-----------------------------------#
 session_code = randint(10000, 309000)
 mains = Program(session_code)
-#mains.log("testing")
-#mains.log("testing_2")
-print(console_inputs)
 mains.console_input_manage(console_inputs)
+#-----------------------------------------Session-Declare---------------------------#
+
+#---------------------Body---------------------------#
+
 
 
 
