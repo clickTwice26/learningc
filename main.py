@@ -4,6 +4,7 @@ from datetime import datetime
 from random import randint
 from shutil import copyfile
 from sys import argv, exit
+from colorama import Fore, Back, Style
 working_dir = os.getcwd()
 config_data = json.load(open(working_dir+"/config.json", "r"))
 #print(config_data)
@@ -26,13 +27,14 @@ def currentTime(wdm="both"):
 	else:
 		return dt_string
 def cout(comment):
-	error_list = ["failed", "error", "unsuccessful", "problem", "fix"]
-	error_check = any(item in comment for item in error_list)
+	comment_check = comment.lower()
+	error_list = ["not", "failed", "error", "unsuccessful", "problem", "fix"]
+	error_check = any(item in comment_check for item in error_list)
 
 	if error_check is True:
-		prefix = "[X]"
+		prefix = Fore.RED + "[X-ERROR]"
 	else:
-		prefix = "[+]"
+		prefix = Fore.GREEN + "[+]"
 	print(f"{prefix}-> {comment}")
 class Program:
 	def __init__(self, session, session_comment=None):
@@ -90,13 +92,41 @@ class Program:
 			os.system(f"git push -u origin master")
 		else:
 			os.system(f"git push -u origin {branch_name}")
-	def console_input_manage(self,)
+	def console_input_manage(self, console_inputs):
+		self.options = console_inputs[1]
+		self.parameter = console_inputs[2]
+		ci = console_inputs
+		cileng = len(console_inputs)
+		print(f"Options: {self.options}\nParam: {self.parameter}")
+		if self.options == "git":
+			cout("'git' option activated")
+			cout(str(len(ci)))
+			if self.parameter == "allpush":
+				if cileng > 3:
+					
+					try:
+						commit_name = ci[3]
+					except IndexError:
+						cout("Commit_name not given")
+						commit_name = "some coding happend"
+						cout("Commit_name:{}".format(commit_name))
+					self.gitcommit(commit_name)
+					if clleng > 4:
+						try:
+							branch_name = ci[4]
+						except IndexError:
+							cout("Branch_name not given")
+							self.gitpush()
+				else:
+					cout("Commit Details Not Submited")
+					exit()
+		print(console_inputs)
 session_code = randint(10000, 309000)
 mains = Program(session_code)
 #mains.log("testing")
 #mains.log("testing_2")
 print(console_inputs)
-
+mains.console_input_manage(console_inputs)
 
 
 
