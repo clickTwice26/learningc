@@ -45,7 +45,7 @@ class Program:
 		if config_data["commandEcho"] == "True":
 			self.__commandEcho = ""
 		else:
-			self.__commandEcho = "> /dev/null > 2&1"
+			self.__commandEcho = "> /dev/null 2>&1"
 		
 
 	def log(self, comment, consoleOut=False):
