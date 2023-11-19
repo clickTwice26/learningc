@@ -117,10 +117,12 @@ class Program:
 							branch_name = ci[4]
 							cout("Branch_name: ", branch_name)
 							self.gitpush(branch_name)
+							self.log("Code Pushed")
 						except IndexError:
 							cout("Branch_name not given")
 
 							self.gitpush()
+							self.log("Code Pushed")
 				else:
 					cout("Commit Details Not Submited")
 					exit()
