@@ -1,8 +1,8 @@
 {
-	"consoleOut" : "True",
-	"consoleLog" : "True",
-	"console_log_limit" : "50",
-	"cout": "True",
-	"commandEcho": "True"
-
+    "consoleOut": "True",
+    "consoleLog": "True",
+    "console_log_limit": "50",
+    "cout": "True",
+    "commandEcho": "True",
+    "last_session": "119801"
 }
