@@ -44,7 +44,7 @@ def cout(comment):
 
 		else:
 			prefix = Fore.GREEN + "[+]"
-		print(f"{Style.BRIGHT} {Back.GREEN}{prefix}-> {Fore.BLUE} {comment}")
+		print(f"{Style.BRIGHT}{prefix}-> {Fore.BLUE} {comment}")
 	
 class Program:
 	def __init__(self, session, session_comment=None):
