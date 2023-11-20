@@ -13,7 +13,9 @@ try:
 	config_data = json.load(open(working_dir+"/config.json", "r"))
 except FileNotFoundError:
 	print("[+] Not found proper environment to run this program")
+	print("[+] Config file not found")
 	exit("[+] Exiting")
+
 #print(config_data)
 console_inputs = argv
 def byte2other(byte):
@@ -148,8 +150,8 @@ class Program:
 
 		cout("Do you want to store this build?")
 		try:
-			x = input("[Yes=Enter][Build Name:]")
-			if x in ["yes", "y", ""]:
+			x = input("[Y/y][Build Name:]")
+			if x in ["yes", "y"]:
 				try:
 					self.log(f"Exec version of '{filename}' saved to --> builds/")
 					move(f"{working_dir}/{filename}", f"{working_dir}/builds/")
@@ -168,19 +170,13 @@ class Program:
 			elif x not in ['yes', 'y', '', 'no', 'n']:
 				try:
 					self.log(f"Exec version of '{x}' saved to --> builds/")
-					move(f"{working_dir}/{filename}", f"{working_dir}/builds/")
+					move(f"{working_dir}/{filename}", f"{working_dir}/builds/{x}")
 
 				except Exception as error:
-		#			cout(error)
-					x = input("[!] File already exist \n [+]-> Do you want to overwrite it? [y/n]")
-					if x in ["y", "yes"]:
-						os.system(f"mv {working_dir}/{x} {working_dir}/builds/")
-						#move(f"{working_dir}/{filename}", f"{working_dir}/builds/")
-						self.log(f"Exec version of '{x}' saved to --> builds/")
+					cout(error)
+						
 
 
-					else:
-						cout("File not saved")
 			else:
 				os.remove(f"{working_dir}/helloworld")
 		except KeyboardInterrupt:
