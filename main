@@ -21,7 +21,6 @@ console_inputs = argv
 def byte2other(byte):
 	byte = float(byte)
 	KiB = byte/1024
-	
 	MiB = KiB/1024
 	if MiB < 0.0001:
 		MiB = "[Too Small]"
@@ -47,20 +46,20 @@ def currentTime(wdm="both"):
 		return dt_string
 	else:
 		return dt_string
+
 def cout(comment):
+
 	comment = str(comment)
 	if config_data["cout"] == "True":
 		comment_check = comment.lower()
 		error_list = ["not", "failed", "error", "unsuccessful", "problem", "fix"]
 		error_check = any(item in comment_check for item in error_list)
-
 		if error_check is True:
 			prefix = Fore.RED + "[X]"
-
 		else:
 			prefix = Fore.GREEN + "[+]"
-		print(f"{Style.BRIGHT}{prefix}-> {Fore.BLUE} {comment}")
-	
+		print(f"{Style.BRIGHT} {prefix}-> {Fore.BLUE} {comment}")
+
 class Program:
 	def __init__(self, session, session_comment=None):
 		self.__session = session
@@ -72,8 +71,8 @@ class Program:
 		with open(working_dir+"/console_log.txt", "a") as console_logger:
 			console_logger.write(f"{5*'--'}{self.__session}{5*'--'}\n")
 			console_logger.close()
-			
-	
+
+
 	def log(self, comment, consoleOut=False):
 		consoleOutStr = f"{Fore.BLACK} [cOut] [{comment}]"
 		log_data = f"[cOut-{self.__session}] [{currentTime()}] [{comment}]"
