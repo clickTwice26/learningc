@@ -204,7 +204,6 @@ class Program:
 			#cout(str(len(ci)))
 			if self.parameter == "allpush":
 				if cileng > 3:
-					
 					try:
 						commit_name = ci[3]
 					except IndexError:
@@ -232,9 +231,15 @@ class Program:
 		#cout(console_inputs)
 	def programExit(self):
 		config_data["last_session"] = str(self.__session)
-		with open(working_dir+"/config.json", "w") as config_writer:
-			config_writer.write(json.dumps(config_data, indent=4))
-			config_writer.close()
+		try:
+			with open(working_dir+"/config.json", "w") as config_writer:
+				config_writer.write(json.dumps(config_data, indent=4))
+				config_writer.close()
+			self.log("Successfully Exited")
+			cout(f"Succesfully Exited")
+		except Exception as error:
+			self.log("Exit Unsuccessful")
+			cout("Error exit", error)
 
 
 
