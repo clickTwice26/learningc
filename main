@@ -18,6 +18,8 @@ except FileNotFoundError:
 
 #print(config_data)
 console_inputs = argv
+def clear():
+	os.system("clear")
 def byte2other(byte):
 	byte = float(byte)
 	KiB = byte/1024
@@ -47,7 +49,7 @@ def currentTime(wdm="both"):
 	else:
 		return dt_string
 
-def cout(comment):
+def cout(comment, error=None):
 
 	comment = str(comment)
 	if config_data["cout"] == "True":
@@ -58,7 +60,7 @@ def cout(comment):
 			prefix = Fore.RED + "[X]"
 		else:
 			prefix = Fore.GREEN + "[+]"
-		print(f"{Style.BRIGHT} {Back.BLUE} {prefix}-> {Fore.BLUE}{Style.BRIGHT} {comment}")
+		print(f"\n{Style.BRIGHT}{prefix}-> {Fore.BLUE}{Style.BRIGHT if error==None else ''} {comment}\n\t{Fore.RED}{('ERROR: '+str(error)) if error!=None else ''}")
 
 class Program:
 	def __init__(self, session, session_comment=None):
@@ -149,7 +151,7 @@ class Program:
 
 		cout("Do you want to store this build?")
 		try:
-			x = input("[Y/y][Build Name:]")
+			x = input("[CTRL+C/run_again][Y/y][Save Build Name:]")
 			if x in ["yes", "y"]:
 				try:
 					self.log(f"Exec version of '{filename}' saved to --> builds/")
@@ -173,20 +175,30 @@ class Program:
 
 				except Exception as error:
 					cout(error)
-						
+
 
 
 			else:
-				os.remove(f"{working_dir}/helloworld")
+				try:
+					os.remove(f"{working_dir}/{filename}") #removing_built_files
+				except Exception as error:
+					cout(f"Failed to remove previous built file : '{filename}'", error)
+
+
 		except KeyboardInterrupt:
-			pass	
+			clear()
+			try:
+				os.remove(f"{working_dir}/{filename}") #removing_built_files
+			except Exception as error:
+				cout(f"Failed to remove previous built file : '{filename}'", error)
+			self.c_run(filename)
 	def console_input_manage(self, console_inputs):
 		self.options = console_inputs[1]
 		self.parameter = console_inputs[2]
 		ci = console_inputs
 		cileng = len(console_inputs)
 		#cout(f"Options: {self.options}\nParam: {self.parameter}")
-		
+
 		if self.options == "git":
 			cout("'git' option activated")
 			#cout(str(len(ci)))
@@ -202,7 +214,7 @@ class Program:
 					self.gitcommit(commit_name)
 					if cileng >= 4:
 						try:
-							
+
 							branch_name = ci[4]
 							cout("Branch_name: ", branch_name)
 							self.gitpush(branch_name)
@@ -224,7 +236,7 @@ class Program:
 			config_writer.write(json.dumps(config_data, indent=4))
 			config_writer.close()
 
-		
+
 
 #----------------------------------Session-Declare-----------------------------------#
 session_code = randint(10000, 309000)
