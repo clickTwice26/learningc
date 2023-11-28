@@ -1,0 +1,4 @@
+
+options - run, git																													  
+parameters - run: <filename> , example: ./main run <filename>																			  
+			git: <allpush> <commit_name> <branch_name>[optional] , example: ./main git allpush "first commit" "main"				  

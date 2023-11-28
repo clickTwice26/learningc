@@ -1,6 +1,7 @@
 #!/usr/bin/python3
 import os
 import json
+import subprocess
 from datetime import datetime
 from random import randint
 from shutil import copyfile, move
@@ -86,18 +87,25 @@ class Program:
 				console_logger.close()
 
 		#log_overflow_checker
-		
+
 	def log_overflow_fix(self):
 		log_limit = config_data["console_log_limit"]
+		console_log_data = open(f"{working_dir}/console_log.txt", "r").read().splitlines()
 		try:
-			current_log_amount = len(open("console_log.txt", "r").read().splitlines())
+			sum = 0
+			for i in open(f"{working_dir}/console_log.txt", "r").read().splitlines():
+				if not i.startswith("-"):
+					sum+=1
+					pass
+			#current_log_amount = [sum+=1 if not i.startswith("-") for i in console_log_data]
+			current_log_amount = sum
 		except FileNotFoundError:
 			current_log_amount = 0
 		print("\n")
 		try:
 			cout(f"Total line of code: {self.__line_number}")
-			cout(f"C Code File Size: {byte2other(float(os.path.getsize(working_dir+f'/{self.__filename}.c')))}")
-			cout(f"Build Size: {byte2other(self.__build_size_number)}")
+			cout(f"'{self.__filename}.c' File Size: {byte2other(float(os.path.getsize(working_dir+f'/{self.__filename}.c')))}")
+			cout(f"{self.__filename} build size: {byte2other(self.__build_size_number)}")
 		except AttributeError:
 			print("")
 		cout(f"Total Project Size: {byte2other(float(os.path.getsize(working_dir)))}")
@@ -122,7 +130,8 @@ class Program:
 				except Exception as error:
 					cout(error)
 	def __str__(self):
-		return "Don't use without"
+
+		return "Don't use it separately"
 
 	def gitcommit(self, commit_name):
 		self.log(f"attempt to commit: {commit_name}")
@@ -194,12 +203,13 @@ class Program:
 			self.c_run(filename)
 	def console_input_manage(self, console_inputs):
 		self.options = console_inputs[1]
-		self.parameter = console_inputs[2]
 		ci = console_inputs
 		cileng = len(console_inputs)
 		#cout(f"Options: {self.options}\nParam: {self.parameter}")
 
 		if self.options == "git":
+			self.parameter = console_inputs[2]
+
 			cout("'git' option activated")
 			#cout(str(len(ci)))
 			if self.parameter == "allpush":
@@ -226,9 +236,24 @@ class Program:
 				else:
 					cout("Commit Details Not Submited")
 					exit()
-		if self.options == "run":
+		elif self.options == "run":
+
+			self.parameter = console_inputs[2]
+
 			self.c_run(self.parameter)
+
+		elif self.options == "clearconsolelog":
+			#os.popen('cat /etc/services').read()
+			self.log("Program Successfully Activated")
+			try:
+				output = subprocess.check_output(f"cd {working_dir}/backups/ && rm *",shell=True)
+			except subprocess.CalledProcessError as error:
+				print(error)
+				cout("Console clear not successful",error)
+			#print(output)
+			#os.popen(f"cd {working_dir}/backups/ && rm *")
 		#cout(console_inputs)
+
 	def programExit(self):
 		config_data["last_session"] = str(self.__session)
 		try:
@@ -246,10 +271,13 @@ class Program:
 #----------------------------------Session-Declare-----------------------------------#
 session_code = randint(10000, 309000)
 mains = Program(session_code)
-if len(console_inputs)>1:
+if len(console_inputs) > 1:
 	mains.console_input_manage(console_inputs)
 else:
 	print("No arguments given")
+	print(open(working_dir+"/usage.txt", "r").read())
+	#exit()
+
 #------------------------------------------Session-Declare---------------------------#
 #---------------------Body---------------------------#
 
