@@ -163,16 +163,17 @@ class Program:
 			x = input("[CTRL+C/run_again][Y/y][Save Build Name:]")
 			if x in ["yes", "y"]:
 				try:
-					self.log(f"Exec version of '{filename}' saved to --> builds/")
-					move(f"{working_dir}/{filename}", f"{working_dir}/builds/")
+					self.log(f"Exec version of '{filename}' saved to --> builds/ & c_files/")
+					os.system(f"mv {working_dir}/{filename} {working_dir}/builds/")
+					copyfile(f"{working_dir}/{filename}.c", f"{working_dir}/c_files/{filename}.c")
 
 				except Exception as error:
 		#			cout(error)
 					x = input("[!] File already exist \n [+]-> Do you want to overwrite it? [y/n]")
 					if x in ["y", "yes"]:
 						os.system(f"mv {working_dir}/{filename} {working_dir}/builds/")
-						#move(f"{working_dir}/{filename}", f"{working_dir}/builds/")
-						self.log(f"Exec version of '{filename}' saved to --> builds/")
+						copyfile(f"{working_dir}/{filename}.c", f"{working_dir}/c_files/")
+						self.log(f"Exec version of '{filename}' saved to --> builds/ & c_files/")
 
 
 					else:
@@ -180,7 +181,7 @@ class Program:
 			elif x not in ['yes', 'y', '', 'no', 'n']:
 				try:
 					self.log(f"Exec version of '{x}' saved to --> builds/")
-					move(f"{working_dir}/{filename}", f"{working_dir}/builds/{x}")
+					copyfile(f"{working_dir}/{filename}.c", f"{working_dir}/c_files/{x}")
 
 				except Exception as error:
 					cout(error)
