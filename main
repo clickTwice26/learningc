@@ -141,6 +141,7 @@ class Program:
 	def gitpush(self, branch_name="default"):
 		self.log(f"git attempt for push: '{branch_name}'")
 		if branch_name == "default":
+			branch_name = "master"
 			cout("No branch selected to push")
 			cout("default branch selected-> 'master'")
 			os.system(f"git push -u origin master {self.__commandEcho}")
